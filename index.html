@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Equipamentos e Funcionários</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .form-group textarea {
+            resize: vertical;
+        }
+        .form-group button {
+            width: 100%;
+            padding: 10px;
+            background-color: #5cb85c;
+            border: none;
+            border-radius: 4px;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .form-group button:hover {
+            background-color: #4cae4c;
+        }
+        .section-title {
+            margin: 30px 0 15px;
+            font-size: 20px;
+            color: #333;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 10px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        .action-buttons button {
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Cadastro de Equipamentos e Funcionários</h1>
+        
+        <!-- Formulário de Cadastro de Funcionários -->
+        <form id="funcionariosForm">
+            <div class="section-title">Cadastro de Funcionários</div>
+            <div class="form-group">
+                <label for="func_id">ID (deixe em branco para criar novo):</label>
+                <input type="text" id="func_id" name="func_id" readonly>
+            </div>
+            <div class="form-group">
+                <label for="func_nome">Nome do Funcionário:</label>
+                <input type="text" id="func_nome" name="func_nome" required>
+            </div>
+            <div class="form-group">
+                <label for="func_cargo">Cargo:</label>
+                <input type="text" id="func_cargo" name="func_cargo" required>
+            </div>
+            <div class="form-group">
+                <label for="func_contato">Contato:</label>
+                <input type="text" id="func_contato" name="func_contato" required>
+            </div>
+            <div class="form-group">
+                <button type="submit">Salvar Funcionário</button>
+            </div>
+        </form>
+
+        <!-- Tabela de Funcionários -->
+        <div class="section-title">Lista de Funcionários</div>
+        <table id="funcionariosTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Cargo</th>
+                    <th>Contato</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- As linhas da tabela serão preenchidas pelo JavaScript -->
+            </tbody>
+        </table>
+
+        <!-- Formulário de Cadastro de Equipamentos -->
+        <form id="equipamentosForm">
+            <div class="section-title">Cadastro de Equipamentos de Proteção Individual</div>
+            <div class="form-group">
+                <label for="eq_id">ID (deixe em branco para criar novo):</label>
+                <input type="text" id="eq_id" name="eq_id" readonly>
+            </div>
+            <div class="form-group">
+                <label for="nome">Nome do Equipamento:</label>
+                <input type="text" id="nome" name="nome" required>
+            </div>
+            <div class="form-group">
+                <label for="tipo">Tipo:</label>
+                <select id="tipo" name="tipo" required>
+                    <option value="">Selecione o Tipo</option>
+                    <option value="capacete">Capacete</option>
+                    <option value="luvas">Luvas</option>
+                    <option value="oculos">Óculos</option>
+                    <option value="mascara">Máscara</option>
+                    <option value="protetores">Protetores Auriculares</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="quantidade">Quantidade:</label>
+                <input type="number" id="quantidade" name="quantidade" min="1" required>
+            </div>
+            <div class="form-group">
+                <label for="descricao">Descrição:</label>
+                <textarea id="descricao" name="descricao" rows="4"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="funcionario">Funcionário:</label>
+                <select id="funcionario" name="funcionario">
+                    <option value="">Nenhum Funcionário Selecionado</option>
+                    <!-- As opções serão preenchidas pelo JavaScript -->
+                </select>
+            </div>
+            <div class="form-group">
+                <button type="submit">Salvar Equipamento</button>
+            </div>
+        </form>
+
+        <!-- Tabela de Equipamentos -->
+        <div class="section-title">Lista de Equipamentos</div>
+        <table id="equipamentosTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Tipo</th>
+                    <th>Quantidade</th>
+                    <th>Descrição</th>
+                    <th>Funcionário</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- As linhas da tabela serão preenchidas pelo JavaScript -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        // Funções de Manipulação de Funcionários
+        const funcionariosForm = document.getElementById('funcionariosForm');
+        const funcionariosTableBody = document.getElementById('funcionariosTable').getElementsByTagName('tbody')[0];
+        const funcionarioSelect = document.getElementById('funcionario');
+
+        // Carregar funcionários do localStorage
+        function loadFuncionarios() {
+            const funcionarios = JSON.parse(localStorage.getItem('funcionarios')) || [];
+            funcionariosTableBody.innerHTML = ''; // Limpa a tabela antes de adicionar novos dados
+            funcionarioSelect.innerHTML = '<option value="">Nenhum Funcionário Selecionado</option>'; // Limpa as opções do select
+
+            funcionarios.forEach(funcionario => {
+                const row = funcionariosTableBody.insertRow();
+                row.innerHTML = `
+                    <td>${funcionario.id}</td>
+                    <td>${funcionario.nome}</td>
+                    <td>${funcionario.cargo}</td>
+                    <td>${funcionario.contato}</td>
+                    <td class="action-buttons">
+                        <button onclick="editFuncionario(${funcionario.id})">Editar</button>
+                        <button onclick="deleteFuncionario(${funcionario.id})">Excluir</button>
+                    </td>
+                `;
+
+                // Adiciona funcionário ao select de equipamentos
+                const option = document.createElement('option');
+                option.value = funcionario.id;
+                option.textContent = funcionario.nome;
+                funcionarioSelect.appendChild(option);
+            });
+        }
+
+        // Salvar ou atualizar funcionário
+        funcionariosForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const id = parseInt(funcionariosForm.func_id.value) || Date.now();
+            const nome = funcionariosForm.func_nome.value;
+            const cargo = funcionariosForm.func_cargo.value;
+            const contato = funcionariosForm.func_contato.value;
+
+            let funcionarios = JSON.parse(localStorage.getItem('funcionarios')) || [];
+            const index = funcionarios.findIndex(f => f.id === id);
+
+            if (index >= 0) {
+                funcionarios[index] = { id, nome, cargo, contato };
+            } else {
+                funcionarios.push({ id, nome, cargo, contato });
+            }
+
+            localStorage.setItem('funcionarios', JSON.stringify(funcionarios));
+            funcionariosForm.reset();
+            loadFuncionarios();
+        });
+
+        // Editar funcionário
+        function editFuncionario(id) {
+            const funcionarios = JSON.parse(localStorage.getItem('funcionarios')) || [];
+            const funcionario = funcionarios.find(f => f.id === id);
+
+            if (funcionario) {
+                funcionariosForm.func_id.value = funcionario.id;
+                funcionariosForm.func_nome.value = funcionario.nome;
+                funcionariosForm.func_cargo.value = funcionario.cargo;
+                funcionariosForm.func_contato.value = funcionario.contato;
+            }
+        }
+
+        // Excluir funcionário
+        function deleteFuncionario(id) {
+            let funcionarios = JSON.parse(localStorage.getItem('funcionarios')) || [];
+            funcionarios = funcionarios.filter(f => f.id !== id);
+            localStorage.setItem('funcionarios', JSON.stringify(funcionarios));
+            loadFuncionarios();
+        }
+
+        // Funções de Manipulação de Equipamentos
+        const equipamentosForm = document.getElementById('equipamentosForm');
+        const equipamentosTableBody = document.getElementById('equipamentosTable').getElementsByTagName('tbody')[0];
+
+        // Carregar equipamentos do localStorage
+        function loadEquipamentos() {
+            const equipamentos = JSON.parse(localStorage.getItem('equipamentos')) || [];
+            equipamentosTableBody.innerHTML = ''; // Limpa a tabela antes de adicionar novos dados
+
+            equipamentos.forEach(equipamento => {
+                const row = equipamentosTableBody.insertRow();
+                row.innerHTML = `
+                    <td>${equipamento.id}</td>
+                    <td>${equipamento.nome}</td>
+                    <td>${equipamento.tipo}</td>
+                    <td>${equipamento.quantidade}</td>
+                    <td>${equipamento.descricao}</td>
+                    <td>${equipamento.funcionario ? equipamento.funcionario : 'Nenhum'}</td>
+                    <td class="action-buttons">
+                        <button onclick="editEquipamento(${equipamento.id})">Editar</button>
+                        <button onclick="deleteEquipamento(${equipamento.id})">Excluir</button>
+                    </td>
+                `;
+            });
+        }
+
+        // Salvar ou atualizar equipamento
+        equipamentosForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const id = parseInt(equipamentosForm.eq_id.value) || Date.now();
+            const nome = equipamentosForm.nome.value;
+            const tipo = equipamentosForm.tipo.value;
+            const quantidade = equipamentosForm.quantidade.value;
+            const descricao = equipamentosForm.descricao.value;
+            const funcionario = equipamentosForm.funcionario.value;
+
+            let equipamentos = JSON.parse(localStorage.getItem('equipamentos')) || [];
+            const index = equipamentos.findIndex(e => e.id === id);
+
+            if (index >= 0) {
+                equipamentos[index] = { id, nome, tipo, quantidade, descricao, funcionario };
+            } else {
+                equipamentos.push({ id, nome, tipo, quantidade, descricao, funcionario });
+            }
+
+            localStorage.setItem('equipamentos', JSON.stringify(equipamentos));
+            equipamentosForm.reset();
+            loadEquipamentos();
+        });
+
+        // Editar equipamento
+        function editEquipamento(id) {
+            const equipamentos = JSON.parse(localStorage.getItem('equipamentos')) || [];
+            const equipamento = equipamentos.find(e => e.id === id);
+
+            if (equipamento) {
+                equipamentosForm.eq_id.value = equipamento.id;
+                equipamentosForm.nome.value = equipamento.nome;
+                equipamentosForm.tipo.value = equipamento.tipo;
+                equipamentosForm.quantidade.value = equipamento.quantidade;
+                equipamentosForm.descricao.value = equipamento.descricao;
+                equipamentosForm.funcionario.value = equipamento.funcionario || '';
+            }
+        }
+
+        // Excluir equipamento
+        function deleteEquipamento(id) {
+            let equipamentos = JSON.parse(localStorage.getItem('equipamentos')) || [];
+            equipamentos = equipamentos.filter(e => e.id !== id);
+            localStorage.setItem('equipamentos', JSON.stringify(equipamentos));
+            loadEquipamentos();
+        }
+
+        // Inicializa a página
+        document.addEventListener('DOMContentLoaded', () => {
+            loadFuncionarios();
+            loadEquipamentos();
+        });
+    </script>
+</body>
+</html>
